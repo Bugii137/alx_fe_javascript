@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Quote Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f0f4f8; padding: 20px; }
+   <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
     h1, h3 { color: #333; }
-    #quoteDisplay { background: #fff; padding: 15px; border-left: 4px solid #007BFF; margin: 15px 0; font-size: 18px; }
-    input, select, button { margin: 5px 0; padding: 8px; width: 100%; max-width: 400px; }
-    button { background-color: #007BFF; color: white; border: none; cursor: pointer; }
+    #quoteDisplay { background: #fff; padding: 15px; border-left: 5px solid #007BFF; margin: 15px 0; font-size: 18px; }
+    input, select, button { padding: 8px; margin: 5px 0; width: 100%; max-width: 400px; display: block; }
+    button { background-color: #007BFF; color: #fff; border: none; cursor: pointer; }
     button:hover { background-color: #0056b3; }
   </style>
 </head>
 <body>
-
   <h1>Dynamic Quote Generator</h1>
 
-  <label for="categorySelector">Choose Category:</label>
-  <select id="categorySelector">
-    <option value="all">All Categories</option>
-  </select>
+  <div>
+    <select id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+    </select>
+  </div>
 
-  <div id="quoteDisplay">Click "Show New Quote" to begin!</div>
+  <div id="quoteDisplay"></div>
   <button id="newQuote">Show New Quote</button>
 
-  <h3>Add New Quote</h3>
-  <input type="text" id="newQuoteText" placeholder="Enter a new quote" />
-  <input type="text" id="newQuoteCategory" placeholder="Enter quote category" />
-  <button onclick="addQuote()">Add Quote</button>
+  <div>
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button onclick="addQuote()">Add Quote</button>
+  </div>
 
-  <h3>Import/Export Quotes</h3>
-  <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
-  <button onclick="exportToJsonFile()">Export Quotes to JSON</button>
+  <div>
+    <button onclick="exportToJsonFile()">Export Quotes</button>
+    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  </div>
 
   <script src="script.js"></script>
 </body>
