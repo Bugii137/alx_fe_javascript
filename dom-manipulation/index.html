@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dynamic Quote Generator</title>
   <style>
     body {
@@ -10,11 +10,9 @@
       padding: 20px;
       background-color: #f4f4f4;
     }
-
     h1, h3 {
       color: #333;
     }
-
     #quoteDisplay {
       background: #fff;
       padding: 15px;
@@ -22,46 +20,38 @@
       margin: 15px 0;
       font-size: 18px;
     }
-
     input, select, button {
       padding: 10px;
-      margin: 5px 0;
+      margin: 10px 0;
       width: 100%;
       max-width: 400px;
-      box-sizing: border-box;
       display: block;
     }
-
     button {
       background-color: #007BFF;
       color: white;
       border: none;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
+
   <h1>Dynamic Quote Generator</h1>
 
   <div>
-    <label for="categoryFilter"><strong>Filter by Category:</strong></label>
     <select id="categoryFilter">
       <option value="all">All Categories</option>
     </select>
   </div>
 
-  <div id="quoteDisplay">
-    <em>Click "Show New Quote" to display a quote.</em>
-  </div>
-
+  <div id="quoteDisplay">Click "Show New Quote" to begin.</div>
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Quote form will be added dynamically here -->
-  <div id="formContainer"></div>
+  <div id="formContainer" style="margin-top: 20px;"></div>
 
   <script src="script.js"></script>
 </body>
