@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: #f4f4f4;
+      background-color: #f4f4f4;
     }
 
     h1, h3 {
@@ -24,17 +24,17 @@
     }
 
     input, select, button {
-      padding: 8px;
+      padding: 10px;
       margin: 5px 0;
       width: 100%;
       max-width: 400px;
-      display: block;
       box-sizing: border-box;
+      display: block;
     }
 
     button {
       background-color: #007BFF;
-      color: #fff;
+      color: white;
       border: none;
       cursor: pointer;
     }
@@ -42,16 +42,11 @@
     button:hover {
       background-color: #0056b3;
     }
-
-    .form-section {
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <!-- Filter by category -->
   <div>
     <label for="categoryFilter"><strong>Filter by Category:</strong></label>
     <select id="categoryFilter">
@@ -59,30 +54,14 @@
     </select>
   </div>
 
-  <!-- Quote display -->
   <div id="quoteDisplay">
     <em>Click "Show New Quote" to display a quote.</em>
   </div>
 
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Add new quote form -->
-  <div class="form-section">
-    <h3>Add a New Quote</h3>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn">Add Quote</button>
-  </div>
-
-  <!-- Import/export section -->
-  <div class="form-section">
-    <h3>Import / Export Quotes</h3>
-    <button id="exportBtn">Export Quotes</button>
-    <input type="file" id="importFile" accept=".json" />
-  </div>
-
-  <!-- Sync status -->
-  <div id="syncStatus" style="margin-top: 15px; font-style: italic; color: green;"></div>
+  <!-- Quote form will be added dynamically here -->
+  <div id="formContainer"></div>
 
   <script src="script.js"></script>
 </body>
