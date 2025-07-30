@@ -7,10 +7,20 @@ const quoteDisplay = document.getElementById("quoteDisplay");
 const categoryFilter = document.getElementById("categoryFilter");
 const syncStatus = document.getElementById("syncStatus");
 
+// Restore saved category
 const savedFilter = localStorage.getItem('selectedCategory');
 if (savedFilter) categoryFilter.value = savedFilter;
 
+// Bind all events
 document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
+document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
+document.getElementById("exportBtn").addEventListener("click", exportToJsonFile);
+document.getElementById("importFile").addEventListener("change", importFromJsonFile);
+categoryFilter.addEventListener("change", filterQuote);
+
+populateCategories();
+filterQuote(); // Show first quote based on selected category
+syncQuotes();  // Sync immediately on load
 
 function displayRandomQuote() {
   const selectedCategory = categoryFilter.value;
@@ -58,9 +68,10 @@ function populateCategories() {
   ).join("");
 
   const saved = localStorage.getItem('selectedCategory');
-  if (saved) categoryFilter.value = saved;
+  if (saved && categories.includes(saved)) {
+    categoryFilter.value = saved;
+  }
 }
-populateCategories();
 
 function filterQuote() {
   const selected = categoryFilter.value;
@@ -84,7 +95,12 @@ function importFromJsonFile(event) {
     try {
       const imported = JSON.parse(e.target.result);
       if (!Array.isArray(imported)) throw new Error("Invalid format");
-      quotes.push(...imported);
+
+      // Validate each quote
+      const validQuotes = imported.filter(q => q.text && q.category);
+      if (validQuotes.length === 0) throw new Error("No valid quotes found.");
+
+      quotes.push(...validQuotes);
       saveQuotes();
       populateCategories();
       filterQuote();
@@ -95,6 +111,8 @@ function importFromJsonFile(event) {
   };
   reader.readAsText(event.target.files[0]);
 }
+
+// ---- Server Sync ----
 
 async function fetchQuotesFromServer() {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -116,7 +134,10 @@ async function postQuoteToServer(quote) {
 async function syncQuotes() {
   try {
     const serverQuotes = await fetchQuotesFromServer();
-    quotes = [...quotes.filter(q => q.category !== "Server"), ...serverQuotes];
+
+    // Remove existing server quotes before adding new ones
+    quotes = quotes.filter(q => q.category !== "Server").concat(serverQuotes);
+
     saveQuotes();
     populateCategories();
     filterQuote();
@@ -125,6 +146,8 @@ async function syncQuotes() {
     updateSyncStatus("❌ Sync failed: " + err.message);
   }
 }
+
+// Periodic sync every 30 seconds
 setInterval(syncQuotes, 30000);
 
 function updateSyncStatus(message) {

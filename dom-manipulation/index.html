@@ -5,39 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Quote Generator</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-    h1, h3 { color: #333; }
-    #quoteDisplay { background: #fff; padding: 15px; border-left: 5px solid #007BFF; margin: 15px 0; font-size: 18px; }
-    input, select, button { padding: 8px; margin: 5px 0; width: 100%; max-width: 400px; display: block; }
-    button { background-color: #007BFF; color: #fff; border: none; cursor: pointer; }
-    button:hover { background-color: #0056b3; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1, h3 {
+      color: #333;
+    }
+
+    #quoteDisplay {
+      background: #fff;
+      padding: 15px;
+      border-left: 5px solid #007BFF;
+      margin: 15px 0;
+      font-size: 18px;
+    }
+
+    input, select, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .form-section {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
+  <!-- Filter by category -->
   <div>
-    <select id="categoryFilter" onchange="filterQuote()">
+    <label for="categoryFilter"><strong>Filter by Category:</strong></label>
+    <select id="categoryFilter">
       <option value="all">All Categories</option>
     </select>
   </div>
 
-  <div id="quoteDisplay" style="margin: 10px 0;"></div>
+  <!-- Quote display -->
+  <div id="quoteDisplay">
+    <em>Click "Show New Quote" to display a quote.</em>
+  </div>
 
   <button id="newQuote">Show New Quote</button>
 
-  <div style="margin-top: 15px;">
+  <!-- Add new quote form -->
+  <div class="form-section">
+    <h3>Add a New Quote</h3>
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
+    <button id="addQuoteBtn">Add Quote</button>
   </div>
 
-  <div style="margin-top: 15px;">
-    <button onclick="exportToJsonFile()">Export Quotes</button>
-    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  <!-- Import/export section -->
+  <div class="form-section">
+    <h3>Import / Export Quotes</h3>
+    <button id="exportBtn">Export Quotes</button>
+    <input type="file" id="importFile" accept=".json" />
   </div>
 
-  <div id="syncStatus" style="margin-top: 15px; font-style: italic;"></div>
+  <!-- Sync status -->
+  <div id="syncStatus" style="margin-top: 15px; font-style: italic; color: green;"></div>
 
   <script src="script.js"></script>
 </body>
